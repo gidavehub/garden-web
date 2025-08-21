@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -7,17 +8,11 @@ import { Button } from '@/components/ui/button';
 import { BookOpen, Calendar, Brain, TestTube2, Bot, Leaf, Settings } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
+import { ALL_TEXTBOOKS } from '@/data/allTextbooks';
 
 export default function DashboardPage() {
   const router = useRouter();
   const { profile } = useAuth();
-
-  const libraryData = [
-    { id: '1', title: 'Financial Accounting', cover: 'https://placehold.co/200x280.png', hint: 'accounting book' },
-    { id: '2', title: 'Calculus I', cover: 'https://placehold.co/200x280.png', hint: 'calculus textbook' },
-    { id: '3', title: 'Intro to Physics', cover: 'https://placehold.co/200x280.png', hint: 'physics textbook' },
-    { id: '4', title: 'World History', cover: 'https://placehold.co/200x280.png', hint: 'history book' },
-  ]
 
   return (
     <div className="space-y-8">
@@ -31,7 +26,6 @@ export default function DashboardPage() {
         </Button>
       </header>
       
-      {/* Performance Section Placeholder */}
       <Card className="animate-in fade-in-50 delay-150">
         <CardHeader>
             <CardTitle>Your Performance</CardTitle>
@@ -43,7 +37,6 @@ export default function DashboardPage() {
       </Card>
 
       <div className="space-y-6">
-        {/* Library Section */}
         <section>
           <div className="flex items-center gap-4 mb-4">
              <BookOpen className="h-7 w-7 text-primary" />
@@ -52,12 +45,12 @@ export default function DashboardPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {libraryData.map(item => (
-                  <div key={item.id} className="group cursor-pointer" onClick={() => router.push('/dashboard/library')}>
+                {ALL_TEXTBOOKS.map(item => (
+                  <div key={item.id} className="group cursor-pointer" onClick={() => router.push(`/dashboard/library/${item.id}`)}>
                     <div className="overflow-hidden rounded-lg">
-                      <Image src={item.cover} alt={item.title} width={200} height={280} data-ai-hint={item.hint} className="w-full aspect-[2/3] object-cover transition-transform group-hover:scale-105" />
+                      <Image src={item.coverImage} alt={item.name} width={200} height={280} data-ai-hint={item.name} className="w-full aspect-[2/3] object-cover transition-transform group-hover:scale-105" />
                     </div>
-                    <h3 className="mt-2 font-semibold text-sm truncate">{item.title}</h3>
+                    <h3 className="mt-2 font-semibold text-sm truncate">{item.name}</h3>
                   </div>
                 ))}
               </div>
@@ -65,7 +58,6 @@ export default function DashboardPage() {
           </Card>
         </section>
 
-        {/* Garden Materials Section */}
         <section>
            <div className="flex items-center gap-4 mb-4">
              <Leaf className="h-7 w-7 text-primary" />
@@ -93,7 +85,6 @@ export default function DashboardPage() {
             </div>
         </section>
         
-        {/* Garden Test & AI Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
                 <CardHeader>
