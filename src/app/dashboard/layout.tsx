@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookOpen, Home, Leaf, LogOut, User, Users } from 'lucide-react';
+import { BookOpen, Home, Leaf, LogOut, User, Users, Bot } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
   SidebarProvider,
@@ -51,6 +51,7 @@ export default function DashboardLayout({
 
   const navItems = [
     { href: '/dashboard', label: 'Home', icon: Home },
+    { href: '/dashboard/garden', label: 'Garden', icon: Leaf },
   ];
 
   if (profile?.role === 'teacher') {
