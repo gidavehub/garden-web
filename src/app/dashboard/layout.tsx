@@ -52,15 +52,15 @@ export default function DashboardLayout({
 
   const navItems = [
     { href: '/dashboard', label: 'Home', icon: Home },
-    { href: '/dashboard/library', label: 'Library', icon: BookOpen },
-    { href: '/dashboard/studies', label: 'My Studies', icon: Brain },
-    { href: '/dashboard/timetable', label: 'Timetable', icon: Calendar },
-    { href: '/dashboard/tests', label: 'Tests', icon: TestTube2 },
-    { href: '/dashboard/ai-chat', label: 'Garden AI', icon: Bot },
+    // { href: '/dashboard/library', label: 'Library', icon: BookOpen },
+    // { href: '/dashboard/studies', label: 'My Studies', icon: Brain },
+    // { href: '/dashboard/timetable', label: 'Timetable', icon: Calendar },
+    // { href: '/dashboard/tests', label: 'Tests', icon: TestTube2 },
+    // { href: '/dashboard/ai-chat', label: 'Garden AI', icon: Bot },
   ];
 
   if (profile?.role === 'teacher') {
-    navItems.push({ href: '/dashboard/teacher-tool', label: 'Teaching Tool', icon: Users });
+    // navItems.push({ href: '/dashboard/teacher-tool', label: 'Teaching Tool', icon: Users });
   }
 
   const getInitials = (name: string) => {
