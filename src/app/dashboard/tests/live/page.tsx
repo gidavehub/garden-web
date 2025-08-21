@@ -9,8 +9,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { ChevronLeft, ChevronRight, Flag, Loader2, Timer, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Flag, Timer, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
 
 type Question = {
   question: string;
@@ -119,7 +120,7 @@ export default function GTLivePage() {
 
   const handlePrev = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(i => i - 1);
+      setCurrentQuestionIndex(i => i + 1);
     }
   };
   
@@ -147,7 +148,18 @@ export default function GTLivePage() {
   };
 
   if (isLoading) {
-    return <div className="flex h-screen items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
+    return (
+        <div className="flex h-screen w-screen items-center justify-center bg-background">
+            <Image 
+                src="/logo.png" 
+                alt="Garden Logo"
+                width={96}
+                height={96}
+                className="animate-spin"
+                style={{animationDuration: '3s'}}
+            />
+        </div>
+    );
   }
   
   const TimerDisplay = () => {

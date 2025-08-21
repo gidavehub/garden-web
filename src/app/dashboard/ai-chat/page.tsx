@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Loader2, Send, Bot, User, Image as ImageIcon } from 'lucide-react';
+import { Send, Bot, User, Image as ImageIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -146,7 +146,7 @@ export default function AIChatPage() {
                             <AvatarFallback><Bot /></AvatarFallback>
                         </Avatar>
                         <div className="max-w-md rounded-xl px-4 py-3 text-sm shadow-sm bg-muted flex items-center gap-2">
-                           <Loader2 className="h-4 w-4 animate-spin" /> 
+                           <Image src="/logo.png" alt="loading" width={16} height={16} className="animate-spin" />
                            <span>Thinking...</span>
                         </div>
                     </div>
@@ -184,7 +184,7 @@ export default function AIChatPage() {
                     />
                 </div>
                 <Button type="submit" size="icon" disabled={isProcessing || (!form.getValues('prompt').trim() && !imageFile)}>
-                    {isProcessing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                    {isProcessing ? <Image src="/logo.png" alt="loading" width={16} height={16} className="animate-spin" /> : <Send className="h-4 w-4" />}
                 </Button>
               </form>
              </Form>

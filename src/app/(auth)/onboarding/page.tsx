@@ -14,8 +14,9 @@ import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Loader2, User, Camera } from 'lucide-react';
+import { User, Camera } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
 
 const steps = {
   student: ['name-picture', 'school', 'role', 'class-level', 'interests', 'complete'],
@@ -119,7 +120,18 @@ export default function OnboardingPage() {
   };
 
   if (authLoading || !user) {
-    return <div className="flex h-screen items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
+    return (
+        <div className="flex h-screen w-screen items-center justify-center bg-background">
+            <Image 
+                src="/logo.png" 
+                alt="Garden Logo"
+                width={96}
+                height={96}
+                className="animate-spin"
+                style={{animationDuration: '3s'}}
+            />
+        </div>
+    );
   }
   
   const renderStep = () => {
@@ -263,7 +275,7 @@ export default function OnboardingPage() {
             </Button>
             {currentStepId === 'complete' ? (
                 <Button onClick={handleSubmit} disabled={isSubmitting}>
-                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {isSubmitting && <Image src="/logo.png" alt="loading" width={16} height={16} className="mr-2 animate-spin" />}
                     Finish
                 </Button>
             ) : (

@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, Leaf } from 'lucide-react';
+import { Leaf } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const signupSchema = z.object({
@@ -129,7 +129,7 @@ export default function SignupPage() {
                 )}
               />
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading && <Image src="/logo.png" alt="loading" width={16} height={16} className="mr-2 animate-spin" />}
                 Create Account
               </Button>
             </form>

@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { BrainCircuit, Loader2, Sparkles, Book, User } from 'lucide-react';
+import { BrainCircuit, Sparkles, Book, User } from 'lucide-react';
+import Image from 'next/image';
 
 import { getTeachingSuggestions, TeachingSuggestionOutput } from '@/ai/flows/teaching-suggestion-tool';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const formSchema = z.object({
   courseTopics: z.string().min(10, { message: 'Please describe the course topics in at least 10 characters.' }),
@@ -105,7 +105,7 @@ export default function TeacherToolPage() {
               />
               <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
                 {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Image src="/logo.png" alt="loading" width={16} height={16} className="mr-2 animate-spin" />
                 ) : (
                   <Sparkles className="mr-2 h-4 w-4" />
                 )}
@@ -116,7 +116,18 @@ export default function TeacherToolPage() {
         </CardContent>
       </Card>
 
-      {isLoading && <SuggestionSkeleton />}
+      {isLoading && (
+        <div className="flex h-64 items-center justify-center">
+            <Image 
+                src="/logo.png" 
+                alt="Garden Logo"
+                width={64}
+                height={64}
+                className="animate-spin"
+                style={{animationDuration: '3s'}}
+            />
+        </div>
+      )}
       
       {suggestions && (
         <div className="space-y-6 animate-in fade-in-50 duration-500">
@@ -139,26 +150,6 @@ export default function TeacherToolPage() {
       )}
     </div>
   );
-}
-
-function SuggestionSkeleton() {
-    return (
-        <div className="space-y-6">
-            <Card>
-                <CardHeader>
-                    <div className="flex items-center gap-4">
-                        <Skeleton className="h-10 w-10 rounded-lg" />
-                        <Skeleton className="h-6 w-1/2" />
-                    </div>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                </CardContent>
-            </Card>
-        </div>
-    )
 }
 
 function SuggestionCard({ icon: Icon, title, content }: { icon: React.ElementType, title: string, content: string }) {

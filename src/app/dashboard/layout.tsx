@@ -38,25 +38,21 @@ export default function DashboardLayout({
 
   if (loading || !user) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <div className="flex items-center space-x-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
+        <div className="flex h-screen w-screen items-center justify-center bg-background">
+            <Image 
+                src="/logo.png" 
+                alt="Garden Logo"
+                width={96}
+                height={96}
+                className="animate-spin"
+                style={{animationDuration: '3s'}}
+            />
         </div>
-      </div>
     );
   }
 
   const navItems = [
     { href: '/dashboard', label: 'Home', icon: Home },
-    // { href: '/dashboard/library', label: 'Library', icon: BookOpen },
-    // { href: '/dashboard/studies', label: 'My Studies', icon: Brain },
-    // { href: '/dashboard/timetable', label: 'Timetable', icon: Calendar },
-    // { href: '/dashboard/tests', label: 'Tests', icon: TestTube2 },
-    // { href: '/dashboard/ai-chat', label: 'Garden AI', icon: Bot },
   ];
 
   if (profile?.role === 'teacher') {
@@ -82,7 +78,7 @@ export default function DashboardLayout({
           <SidebarMenu>
             {navItems.map(item => (
               <SidebarMenuItem key={item.href}>
-                <Link href={item.href}>
+                <Link href={item.href} legacyBehavior={false}>
                   <SidebarMenuButton
                     isActive={pathname === item.href}
                     tooltip={{ children: item.label, side: 'right' }}
