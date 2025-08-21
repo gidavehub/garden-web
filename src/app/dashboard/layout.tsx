@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookOpen, Home, Leaf, LogOut, User, Users, Bot, Calendar, TestTube2 } from 'lucide-react';
+import { BookOpen, Home, Leaf, LogOut, User, Users, Bot, Calendar, TestTube2, Brain } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
   SidebarProvider,
