@@ -32,21 +32,21 @@ export default function GTSubjectSelectorPage() {
   const grade = 10; // Assuming a fixed grade for now
 
   // Default 'maths' and 'english' to be selected
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['maths', 'english']);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['maths', 'financial-accounting']);
 
-  const canStart = useMemo(() => selectedSubjects.includes('maths') && selectedSubjects.includes('english') && selectedSubjects.length >= 5, [selectedSubjects]);
+  const canStart = useMemo(() => selectedSubjects.includes('maths') && selectedSubjects.includes('financial-accounting') && selectedSubjects.length >= 5, [selectedSubjects]);
   
   const orderedGts = useMemo(() => [
-    ...ALL_GTS.filter(s => s.id === 'maths' || s.id === 'english'),
-    ...ALL_GTS.filter(s => s.id !== 'maths' && s.id !== 'english')
+    ...ALL_GTS.filter(s => s.id === 'maths' || s.id === 'financial-accounting'),
+    ...ALL_GTS.filter(s => s.id !== 'maths' && s.id !== 'financial-accounting')
   ], []);
 
   const toggleSubject = (id: string) => {
-    if ((id === 'maths' || id === 'english') && selectedSubjects.includes(id)) {
+    if ((id === 'maths' || id === 'financial-accounting') && selectedSubjects.includes(id)) {
         toast({
             variant: "destructive",
             title: "Required Subject",
-            description: "Mathematics and English are mandatory subjects.",
+            description: "Mathematics and Financial Accounting are mandatory subjects.",
         })
       return;
     }
@@ -62,7 +62,7 @@ export default function GTSubjectSelectorPage() {
         toast({
             variant: "destructive",
             title: "Selection Required",
-            description: "Please choose 5 or more subjects, including Mathematics and English.",
+            description: "Please choose 5 or more subjects, including Mathematics and Financial Accounting.",
         })
       return;
     }
@@ -77,10 +77,10 @@ export default function GTSubjectSelectorPage() {
       const easyEnd = easyStart + EASY_QUESTIONS_PER_TEST;
       const hardEnd = hardStart + HARD_QUESTIONS_PER_TEST;
 
-      const easyPool = gtSet.easy.filter(q => q.grade === grade);
-      const hardPool = gtSet.hard.filter(q => q.grade === grade);
+      const easyPool = gtSet.easy.Questions.filter(q => q.grade === grade);
+      const hardPool = gtSet.hard.Questions.filter(q => q.grade === grade);
 
-      if (easyPool.length < easyEnd || hardPool.length < hardEnd) {
+      if (easyPool.length < EASY_QUESTIONS_PER_TEST || hardPool.length < HARD_QUESTIONS_PER_TEST) {
         toast({
             variant: "destructive",
             title: "Content Error",
@@ -94,8 +94,8 @@ export default function GTSubjectSelectorPage() {
         subjectName: gtSet.name,
         coverImage: textbook.coverImage, 
         questions: [
-            ...shuffle(easyPool.slice(easyStart, easyEnd)),
-            ...shuffle(hardPool.slice(hardStart, hardEnd)),
+            ...shuffle(easyPool.slice(0, EASY_QUESTIONS_PER_TEST)),
+            ...shuffle(hardPool.slice(0, HARD_QUESTIONS_PER_TEST)),
         ],
         sectionType: "Mixed"
       };
@@ -139,7 +139,7 @@ export default function GTSubjectSelectorPage() {
                         <CheckCircle className="h-12 w-12 text-white/90" />
                     </div>
                 )}
-                 {(gt.id === 'maths' || gt.id === 'english') && (
+                 {(gt.id === 'maths' || gt.id === 'financial-accounting') && (
                     <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-full">
                         Required
                     </div>
@@ -158,7 +158,7 @@ export default function GTSubjectSelectorPage() {
           <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           <AlertTitle className="text-blue-800 dark:text-blue-300">Selection Requirement</AlertTitle>
           <AlertDescription className="text-blue-700 dark:text-blue-400">
-            You must select at least 5 subjects to start the test. Mathematics and English are compulsory.
+            You must select at least 5 subjects to start the test. Mathematics and Financial Accounting are compulsory.
           </AlertDescription>
         </Alert>
       )}
