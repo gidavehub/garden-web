@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   const { user, profile, loading } = useAuth();
@@ -25,7 +25,14 @@ export default function Home() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-background">
-      <Loader2 className="h-10 w-10 animate-spin text-primary" />
+      <Image 
+        src="/logo.png" 
+        alt="Garden Logo"
+        width={96}
+        height={96}
+        className="animate-spin"
+        style={{animationDuration: '3s'}}
+      />
     </div>
   );
 }
