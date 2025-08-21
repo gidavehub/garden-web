@@ -5,8 +5,8 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'EduGrow',
-  description: 'Nurturing knowledge, one student at a time.',
+  title: 'Garden',
+  description: 'Your personal space for learning and growth.',
 };
 
 export default function RootLayout({

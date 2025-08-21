@@ -108,7 +108,7 @@ export default function OnboardingPage() {
         const profileRef = doc(firestore, 'users', user.email, 'profile', 'details');
         await setDoc(profileRef, profileData);
         
-        toast({ title: 'Profile Complete!', description: 'Welcome to EduGrow!' });
+        toast({ title: 'Profile Complete!', description: 'Welcome to Garden!' });
         router.push('/dashboard');
     } catch (error) {
         console.error('Failed to save profile:', error);
@@ -238,7 +238,7 @@ export default function OnboardingPage() {
         return (
             <>
                 <CardTitle className="font-headline">Ready to Grow?</CardTitle>
-                <CardDescription>Review your details and complete your profile to join the EduGrow community.</CardDescription>
+                <CardDescription>Review your details and complete your profile to join the Garden community.</CardDescription>
                 <div className="pt-4 text-center">
                     <p>You're all set! Click finish to start your journey.</p>
                 </div>

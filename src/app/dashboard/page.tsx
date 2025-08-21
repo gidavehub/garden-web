@@ -18,7 +18,7 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Leaf className="h-8 w-8 text-primary" />
+          <Image src="/logo.png" alt="Garden logo" width={32} height={32} />
           <h1 className="text-3xl font-headline font-bold text-foreground">Garden</h1>
         </div>
         <Button variant="ghost" size="icon">

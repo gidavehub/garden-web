@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import Image from 'next/image';
 
 import { auth } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -79,8 +80,8 @@ export default function SignupPage() {
       <Card className="w-full max-w-md z-10 shadow-2xl animate-in fade-in-50 duration-500">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 flex items-center gap-2">
-            <Leaf className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-headline font-bold text-foreground">EduGrow</h1>
+            <Image src="/logo.png" alt="Garden Logo" width={32} height={32} />
+            <h1 className="text-3xl font-headline font-bold text-foreground">Garden</h1>
           </div>
           <CardTitle className="text-2xl font-headline">Create an Account</CardTitle>
           <CardDescription>Join our community and start your growth journey.</CardDescription>

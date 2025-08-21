@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookOpen, Home, Leaf, LogOut, User, Users, Bot, Calendar, Brain, TestTube2, Settings } from 'lucide-react';
+import { BookOpen, Home, Brain, LogOut, User, Users, Bot, Calendar, TestTube2, Settings } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
   SidebarProvider,
@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function DashboardLayout({
   children,
@@ -71,9 +72,9 @@ export default function DashboardLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
-            <Leaf className="size-7 text-primary" />
+            <Image src="/logo.png" alt="Garden Logo" width={28} height={28} />
             <h2 className="text-xl font-headline font-semibold group-data-[collapsible=icon]:hidden">
-              EduGrow
+              Garden
             </h2>
           </div>
         </SidebarHeader>
