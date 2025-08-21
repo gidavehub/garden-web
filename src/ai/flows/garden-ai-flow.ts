@@ -9,7 +9,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const ChatMessageSchema = z.object({
+const ChatMessageSchema = z.object({
   id: z.string(),
   role: z.enum(['user', 'model']),
   content: z.string(),
