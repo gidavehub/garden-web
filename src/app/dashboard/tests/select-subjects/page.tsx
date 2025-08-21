@@ -76,7 +76,7 @@ export default function GTSubjectSelectorPage() {
       const hardStart = testIndex * HARD_QUESTIONS_PER_TEST;
       const easyEnd = easyStart + EASY_QUESTIONS_PER_TEST;
       const hardEnd = hardStart + HARD_QUESTIONS_PER_TEST;
-
+      
       const easyPool = gtSet.easy.Questions.filter(q => q.grade === grade);
       const hardPool = gtSet.hard.Questions.filter(q => q.grade === grade);
 
@@ -105,8 +105,12 @@ export default function GTSubjectSelectorPage() {
 
     const totalQuestions = (EASY_QUESTIONS_PER_TEST + HARD_QUESTIONS_PER_TEST) * selectedSubjects.length;
     const examDurationMinutes = Math.round(totalQuestions * 1.5);
+    
+    // Save the exam data to sessionStorage instead of the URL
+    sessionStorage.setItem('currentExam', JSON.stringify(structuredExam));
+    sessionStorage.setItem('currentExamTimeLimit', examDurationMinutes.toString());
 
-    router.push(`/dashboard/tests/live?exam=${encodeURIComponent(JSON.stringify(structuredExam))}&timeLimit=${examDurationMinutes}`);
+    router.push(`/dashboard/tests/live`);
   };
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,12 +23,11 @@ type SubjectSection = {
   subjectName: string;
   coverImage: any;
   questions: Question[];
-  sectionType: 'Easy' | 'Hard';
+  sectionType: 'Easy' | 'Hard' | 'Mixed';
 };
 
 export default function GTLivePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { toast } = useToast();
 
   const [examState, setExamState] = useState<'briefing' | 'testing' | 'review'>('briefing');
@@ -44,8 +43,15 @@ export default function GTLivePage() {
 
   useEffect(() => {
     try {
-      const examData = JSON.parse(searchParams.get('exam') || '[]');
-      const timeLimit = parseInt(searchParams.get('timeLimit') || '0', 10);
+      const examDataString = sessionStorage.getItem('currentExam');
+      const timeLimitString = sessionStorage.getItem('currentExamTimeLimit');
+
+      if (!examDataString || !timeLimitString) {
+        throw new Error("Exam data not found in session storage.");
+      }
+
+      const examData = JSON.parse(examDataString);
+      const timeLimit = parseInt(timeLimitString, 10);
       
       if (!examData || examData.length === 0 || timeLimit === 0) {
         throw new Error("Invalid exam data.");
@@ -59,6 +65,7 @@ export default function GTLivePage() {
       setIsLoading(false);
 
     } catch (e) {
+      console.error(e);
       toast({
         variant: 'destructive',
         title: 'Exam Load Error',
@@ -66,7 +73,7 @@ export default function GTLivePage() {
       });
       router.replace('/dashboard/tests');
     }
-  }, [searchParams, router, toast]);
+  }, [router, toast]);
 
   useEffect(() => {
     if (examState === 'testing' && secondsLeft > 0) {
@@ -89,7 +96,10 @@ export default function GTLivePage() {
   
   const currentSession = sessions[currentSessionIndex];
   const currentQuestion = currentSession?.questions[currentQuestionIndex];
-  const globalQuestionIndex = getGlobalIndex(currentSessionIndex, currentQuestionIndex);
+  const globalQuestionIndex = useMemo(() => {
+      if (!sessions.length) return 0;
+      return getGlobalIndex(currentSessionIndex, currentQuestionIndex);
+  }, [sessions, currentSessionIndex, currentQuestionIndex]);
 
   const handleAnswer = (option: string) => {
     const newAnswers = [...answers];
@@ -124,9 +134,13 @@ export default function GTLivePage() {
   };
 
   const handleSubmit = () => {
-      // In a real app, you would save the results here.
-      // For now, we'll just navigate to a results page.
-      const score = sessions.flat().flatMap(s => s.questions).reduce((sum, question, idx) => sum + (answers[getGlobalIndex(sessions.findIndex(s => s.questions.includes(question)), sessions.find(s => s.questions.includes(question))!.questions.indexOf(question))] === question.answer ? 1 : 0), 0);
+      const score = sessions.flat().flatMap(s => s.questions).reduce((sum, question, idx) => {
+          const sessionIndex = sessions.findIndex(s => s.questions.includes(question));
+          if (sessionIndex === -1) return sum;
+          const questionIndex = sessions[sessionIndex].questions.indexOf(question);
+          const globalIdx = getGlobalIndex(sessionIndex, questionIndex);
+          return sum + (answers[globalIdx] === question.answer ? 1 : 0);
+      }, 0);
 
       router.replace(`/dashboard/tests/results?score=${score}&total=${totalQuestions}`);
   };
