@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -39,7 +38,7 @@ export default function DashboardPage() {
       <div className="space-y-6">
         <section>
           <div className="flex items-center gap-4 mb-4">
-             <BookOpen className="h-7 w-7 text-primary" />
+             <Image src="/logo.png" alt="Garden logo" width={28} height={28} />
              <h2 className="text-2xl font-headline font-bold">Library</h2>
           </div>
           <Card>
