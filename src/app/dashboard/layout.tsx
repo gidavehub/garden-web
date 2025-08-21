@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { BookOpen, Home, Leaf, LogOut, User, Users, Bot } from 'lucide-react';
+import { BookOpen, Home, Leaf, LogOut, User, Users, Bot, Calendar, TestTube2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
   SidebarProvider,
@@ -51,7 +51,11 @@ export default function DashboardLayout({
 
   const navItems = [
     { href: '/dashboard', label: 'Home', icon: Home },
-    { href: '/dashboard/garden', label: 'Garden', icon: Leaf },
+    { href: '/dashboard/library', label: 'Library', icon: BookOpen },
+    { href: '/dashboard/studies', label: 'My Studies', icon: Brain },
+    { href: '/dashboard/timetable', label: 'Timetable', icon: Calendar },
+    { href: '/dashboard/tests', label: 'Tests', icon: TestTube2 },
+    { href: '/dashboard/ai-chat', label: 'Garden AI', icon: Bot },
   ];
 
   if (profile?.role === 'teacher') {
@@ -117,7 +121,7 @@ export default function DashboardLayout({
           <header className="flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:justify-end">
             <SidebarTrigger className="md:hidden" />
             <div className="font-headline text-lg font-semibold">
-              {navItems.find(item => item.href === pathname)?.label || 'Dashboard'}
+              {navItems.find(item => pathname.startsWith(item.href))?.label || 'Dashboard'}
             </div>
           </header>
           <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
