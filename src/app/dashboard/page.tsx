@@ -60,7 +60,7 @@ export default function DashboardPage() {
 
         <section>
            <div className="flex items-center gap-4 mb-4">
-             <Leaf className="h-7 w-7 text-primary" />
+             <Image src="/logo.png" alt="Garden logo" width={28} height={28} />
              <h2 className="text-2xl font-headline font-bold">Garden Materials</h2>
           </div>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -89,7 +89,7 @@ export default function DashboardPage() {
             <Card>
                 <CardHeader>
                     <div className="flex items-center gap-4 mb-2">
-                        <TestTube2 className="h-7 w-7 text-primary" />
+                        <Image src="/logo.png" alt="Garden logo" width={28} height={28} />
                         <CardTitle>Garden Test (GT)</CardTitle>
                     </div>
                     <CardDescription>Test your knowledge to deepen your roots.</CardDescription>
@@ -103,7 +103,7 @@ export default function DashboardPage() {
             <Card>
                 <CardHeader>
                     <div className="flex items-center gap-4 mb-2">
-                       <Bot className="h-7 w-7 text-primary" />
+                       <Image src="/logo.png" alt="Garden logo" width={28} height={28} />
                         <CardTitle>Garden AI</CardTitle>
                     </div>
                     <CardDescription>Get instant answers and explanations.</CardDescription>
